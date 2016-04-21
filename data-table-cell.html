@@ -33,6 +33,13 @@
           observer: '_columnChanged'
         },
 
+        bindHook: {
+          type: Object,
+          value: function() {
+            return function(data, cell) {};
+          }
+        },
+
         _instance: {
           type: Object,
           computed: '_templatize(column, _templatizer)'
@@ -81,6 +88,9 @@
       },
 
       _bindData: function(instance, data) {
+        if (!this.header) {
+          this.bindHook(data, this);
+        }
         instance.bind(data);
       },
 
